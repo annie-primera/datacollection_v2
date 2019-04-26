@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block bodytag %}
+    <body {% if onloadmessage %} onload="alert('{{onloadmessage}}');" {% endif %}>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+    <div class="container mt-5">
+        <h1>Welcome!</h1>
+        <p>Welcome to this grammar checker, powered by <a href="https://prowritingaid.com" target="_blank">ProWritingAid.</a>
+            Remember that this grammar checker is part of a PhD research project, and by using this application you are
+            agreeing to your data being anonymously collected for research purposes.
+            If you want to know what kind of data is collected, how it is handled and by whom, click on <a href="/about">this link</a> for
+            more information. If you have further questions about anything related to this research project,
+            you can contact me directly at <a href="mailto:ana.hibert@ed.ac.uk">ana.hibert@ed.ac.uk.</a>
+        </p>
+    </div>
+
+
+    <div class="container page-form">
+        <div class="container">
+            <h2>Log in</h2>
+        </div>
+        <form id="login-form" action="/login" method="post">
+            {% if loginform.errors %}
+                    <ul class=errors">
+                        {% for field_name, field_errors in loginform.errors|dictsort if field_errors %}
+                            {% for error in field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {{ loginform.csrf_token}}
+            <div class="form-group">
+                {{ loginform.loginemail(class="form-control", placeholder="Email Address")}}
+            </div>
+            <div class="form-group">
+                {{ loginform.loginpassword(class="form-control", placeholder="Password")}}
+            </div>
+
+            {{ loginform.submit(value="Sign in", class="btn btn-success")}}
+            <input type="text" name="weekday" value="friday" hidden>
+        </form>
+
+    </div>
+
+{% endblock %}
