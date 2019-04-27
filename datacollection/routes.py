@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, request, session, flash
-from flask_login import login_required, login_user
+from flask_login import login_required, login_user, logout_user, current_user
 from datacollection import app, db, bcrypt
 from datacollection.forms import LoginForm, RegistrationForm
-from datacollection.models import User, UserActions
+from datacollection.models import User, UserActions, Texts
 
 
 @app.route("/")
@@ -13,7 +13,7 @@ def index():
 @app.route("/account")
 @login_required
 def account():
-    return render_template("dashboard.html")
+    return redirect(url_for('dashboard'))
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -45,5 +45,19 @@ def login():
             db.session.add(login_click)
             db.session.commit()
             return redirect(url_for('account'))
-        form.loginemail.errors.append("Email or password invalid")
+        else:
+            form.loginemail.errors.append("Email or password invalid")
     return render_template("home.html", loginform=form)
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    logout_user()
+    return render_template("home.html", loginform=LoginForm())
+
+
+@app.route("/dashboard", methods=["GET"])
+@login_required
+def dashboard():
+    texts = Texts.query.filter_by(user_id=current_user.id).first()
+    return render_template("dashboard.html", texts=texts)
