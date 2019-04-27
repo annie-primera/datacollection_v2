@@ -1,10 +1,8 @@
 from flask import render_template, redirect, url_for, request, session, flash
-from flask_login import LoginManager, login_required, login_user
+from flask_login import login_required, login_user
 from datacollection import app, db, bcrypt
 from datacollection.forms import LoginForm, RegistrationForm
-from datacollection.models import User
-
-login_manager = LoginManager(app)
+from datacollection.models import User, UserActions
 
 
 @app.route("/")
@@ -15,7 +13,7 @@ def index():
 @app.route("/account")
 @login_required
 def account():
-    return redirect(url_for("dashboard"))
+    return render_template("dashboard.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -40,12 +38,12 @@ def register():
 def login():
     form = LoginForm(request.form)
     if form.validate_on_submit():
-        stored_user = DB.get_user(form.loginemail.data)
-        if stored_user and PH.validate_password(form.loginpassword.data, stored_user['salt'], stored_user['hashed']):
-            user = User(form.loginemail.data)
+        user = User.query.filter_by(email=form.loginemail.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.loginpassword.data):
             login_user(user, remember=True)
-            session['username'] = form.loginemail.data
-            DB.click_login(user_id=session['username'], date=datetime.datetime.utcnow())
+            login_click = UserActions(action=1, user_id=user.id)
+            db.session.add(login_click)
+            db.session.commit()
             return redirect(url_for('account'))
         form.loginemail.errors.append("Email or password invalid")
     return render_template("home.html", loginform=form)
