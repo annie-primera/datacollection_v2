@@ -76,11 +76,14 @@ def newtext():
         new_click = UserActions(user_id=current_user.id, action=4)
         db.session.add(new_click)
         db.session.commit()
-        text_id = db.session.query(Texts).order_by(Texts.id.desc()).first()
-        text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id.id)
+        last_text = db.session.query(Texts).order_by(Texts.id.desc()).first()
+        text_id = last_text.id
+        text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
         db.session.add(text_version)
         db.session.commit()
-        return render_template("summary.html", text_id=text_id)
+        plaintext = BeautifulSoup(form.content.data)
+        text_summary = Grammar.summary(plaintext.get_text())
+        return render_template("summary.html", text_id=text_id, text_summary=text_summary)
     else:
         return render_template("basiceditor.html", form=form)
 
