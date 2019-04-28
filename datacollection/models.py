@@ -28,7 +28,7 @@ class Texts(db.Model, UserMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.title}')"
+        return f"{self.title}"
 
 
 class TextVersions(db.Model):

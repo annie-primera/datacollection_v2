@@ -1,8 +1,10 @@
 from flask import render_template, redirect, url_for, request, session, flash
 from flask_login import login_required, login_user, logout_user, current_user
 from datacollection import app, db, bcrypt
-from datacollection.forms import LoginForm, RegistrationForm
-from datacollection.models import User, UserActions, Texts
+from datacollection.forms import LoginForm, RegistrationForm, NewPost
+from datacollection.models import User, UserActions, Texts, TextVersions
+from datacollection.grammar import Grammar
+from bs4 import BeautifulSoup
 
 
 @app.route("/")
@@ -59,5 +61,45 @@ def logout():
 @app.route("/dashboard", methods=["GET"])
 @login_required
 def dashboard():
-    texts = Texts.query.filter_by(user_id=current_user.id).first()
+    texts = Texts.query.filter_by(user_id=current_user.id).all()
     return render_template("dashboard.html", texts=texts)
+
+
+@app.route("/newtext", methods=["GET", "POST"])
+@login_required
+def newtext():
+    form = NewPost(request.form)
+    if request.method == "POST":
+        new_post = Texts(user_id=current_user.id, title=form.title.data, content=form.content.data)
+        db.session.add(new_post)
+        db.session.commit()
+        new_click = UserActions(user_id=current_user.id, action=4)
+        db.session.add(new_click)
+        db.session.commit()
+        text_id = db.session.query(Texts).order_by(Texts.id.desc()).first()
+        text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id.id)
+        db.session.add(text_version)
+        db.session.commit()
+        return render_template("summary.html", text_id=text_id)
+    else:
+        return render_template("basiceditor.html", form=form)
+
+
+@app.route("/summary/<text_id>", methods=["POST"])
+@login_required
+def summary(text_id):
+    texts = Texts.query.filter_by(id=text_id).first()
+    text = texts.content
+    text_version = TextVersions(content=text.content, user_id=current_user.id, text_id=text_id)
+    db.session.add(text_version)
+    db.session.commit()
+    plaintext = BeautifulSoup(text)
+    text_summary = Grammar.summary(plaintext.get_text())
+    new_click = UserActions(user_id=current_user.id, action=2)
+    db.session.add(new_click)
+    db.session.commit()
+
+    return render_template("summary.html", text_summary=text_summary, text_id=text_id)
+
+
+
