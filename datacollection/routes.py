@@ -70,20 +70,21 @@ def dashboard():
 def newtext():
     form = NewPost(request.form)
     if request.method == "POST":
-        new_post = Texts(user_id=current_user.id, title=form.title.data, content=form.content.data)
-        db.session.add(new_post)
-        db.session.commit()
-        new_click = UserActions(user_id=current_user.id, action=4)
-        db.session.add(new_click)
-        db.session.commit()
-        last_text = db.session.query(Texts).order_by(Texts.id.desc()).first()
-        text_id = last_text.id
-        text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
-        db.session.add(text_version)
-        db.session.commit()
-        plaintext = BeautifulSoup(form.content.data)
-        text_summary = Grammar.summary(plaintext.get_text())
-        return render_template("summary.html", text_id=text_id, text_summary=text_summary)
+        if form.validate_on_submit():
+            new_post = Texts(user_id=current_user.id, title=form.title.data, content=form.content.data)
+            db.session.add(new_post)
+            db.session.commit()
+            new_click = UserActions(user_id=current_user.id, action=4)
+            db.session.add(new_click)
+            db.session.commit()
+            last_text = db.session.query(Texts).order_by(Texts.id.desc()).first()
+            text_id = last_text.id
+            text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
+            db.session.add(text_version)
+            db.session.commit()
+            plaintext = BeautifulSoup(form.content.data)
+            text_summary = Grammar.summary(plaintext.get_text())
+            return render_template("summary.html", text_id=text_id, text_summary=text_summary)
     else:
         return render_template("basiceditor.html", form=form)
 
@@ -93,7 +94,7 @@ def newtext():
 def summary(text_id):
     texts = Texts.query.filter_by(id=text_id).first()
     text = texts.content
-    text_version = TextVersions(content=text.content, user_id=current_user.id, text_id=text_id)
+    text_version = TextVersions(content=text, user_id=current_user.id, text_id=text_id)
     db.session.add(text_version)
     db.session.commit()
     plaintext = BeautifulSoup(text)
@@ -104,5 +105,12 @@ def summary(text_id):
 
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 
+
+@app.route("/editor/<text_id>")
+@login_required
+def editor(text_id):
+    content = Texts.query.filter_by(id=text_id).first()
+
+    return render_template("editor.html", text=content)
 
 
