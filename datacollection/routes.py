@@ -1,7 +1,7 @@
-from flask import render_template, redirect, url_for, request, session, flash
+from flask import render_template, redirect, url_for, request, session, abort
 from flask_login import login_required, login_user, logout_user, current_user
 from datacollection import app, db, bcrypt
-from datacollection.forms import LoginForm, RegistrationForm, NewPost
+from datacollection.forms import LoginForm, RegistrationForm, NewPost, EditPost
 from datacollection.models import User, UserActions, Texts, TextVersions
 from datacollection.grammar import Grammar
 from bs4 import BeautifulSoup
@@ -109,8 +109,27 @@ def summary(text_id):
 @app.route("/editor/<text_id>")
 @login_required
 def editor(text_id):
-    content = Texts.query.filter_by(id=text_id).first()
+    form = EditPost(request.form)
+    text = Texts.query.get_or_404(text_id)
+    form.content.data = text.content
+    form.title.data = text.title
 
-    return render_template("editor.html", text=content)
+    return render_template("editor.html", form=form)
+
+
+@app.route("/updatetext/<text_id>")
+@login_required
+def updatetext(text_id):
+    text = Texts.query.get_or_404(text_id)
+    if text.author != current_user:
+        abort()
+    updated_text = request.args.get("text")
+    text.content = updated_text
+    db.session.commit()
+    new_click = UserActions(user_id=current_user.id, action=3)
+    db.session.add(new_click)
+    db.session.commit()
+
+    return redirect(url_for("dashboard"))
 
 

@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block head %}
+{{ super() }}
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
+{% endblock %}
+
+
 {% block content %}
 
 
@@ -12,7 +19,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/dashboardfri">Dashboard <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/dashboard">Dashboard <span class="sr-only">(current)</span></a>
       </li>
     </ul>
         <ul class="navbar-nav ml-auto">
@@ -25,6 +32,7 @@
   </div>
 </nav>
 
+<!-- TEXT EDITOR HERE -->
 <div class="container mt-5">
     <div class="content-section">
         <form method="POST" action="/newtext">
@@ -53,12 +61,12 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.content(class="form-control form-control-lg") }}
+                        {{ form.content(class="form-control form-control-lg", id="controleditor") }}
                     {% endif %}
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.submit(class="btn btn-success") }}
             </div>
         </form>
     </div>
@@ -66,21 +74,9 @@
 
 
 
-<!-- TEXT EDITOR HERE -->
-<div class="container mt-5">
-    <form id="new-post" action="/newtext" method="POST">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" class="form-control" name="title">
-        </div>
-        <div class="form-group">
-            <label for="controleditor">Content</label>
-            <textarea id="controleditor" name="text"> Write your text here</textarea>
-        </div>
+{% endblock %}
 
-        <button type="submit" class="btn btn-success">Save and check grammar</button>
-    </form>
-</div>
-
-
+{% block tail %}
+    {{ super() }}
+    {{ tinymce.init_wtf_tinymce() }}
 {% endblock %}

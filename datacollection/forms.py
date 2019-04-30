@@ -18,17 +18,13 @@ class LoginForm(FlaskForm):
     submit = SubmitField('submit', validators=[DataRequired()])
 
 
-class MyForm(FlaskForm):
-    text = TinyMceField(
-        'My WTF TinyMCE Field label',
-        tinymce_options={'toolbar': 'bold italic | link | code'}
-    )
-
-
 class NewPost(FlaskForm):
-    title = StringField('title', validators=[DataRequired(message="All texts must have a title")])
-    content = TinyMceField(
-        'My WTF TinyMCE Field label',
-        tinymce_options={'toolbar': 'bold italic | link | code'}
-    )
-    submit = SubmitField('submit', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired(message="All texts must have a title")])
+    content = TextAreaField(validators=[DataRequired()])
+    submit = SubmitField('Save and check Grammar', validators=[DataRequired()])
+
+
+class EditPost(FlaskForm):
+    title = StringField('Title', validators=[DataRequired(message="All texts must have a title")])
+    content = TextAreaField(validators=[DataRequired()])
+    submit = SubmitField('Save and return to Dashboard', validators=[DataRequired()])
