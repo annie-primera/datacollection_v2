@@ -106,30 +106,26 @@ def summary(text_id):
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 
 
-@app.route("/editor/<text_id>")
+@app.route("/editor/<text_id>", methods=["GET", "POST"])
 @login_required
 def editor(text_id):
+    text = Texts.query.get_or_404(text_id)
+    if text.user_id != current_user.id:
+        abort(403)
     form = EditPost(request.form)
-    text = Texts.query.get_or_404(text_id)
-    form.content.data = text.content
-    form.title.data = text.title
+    print(form.errors)
+    if request.method == "POST" and form.validate():
+        text.title = form.title.data
+        text.content = form.content.data
+        db.session.commit()
+        new_click = UserActions(user_id=current_user, action=3)
+        db.session.add(new_click)
+        db.session.commit()
+        return redirect(url_for('account'))
+    elif request.method == "GET":
+        form.content.data = text.content
+        form.title.data = text.title
+        return render_template("editor.html", form=form)
 
-    return render_template("editor.html", form=form)
-
-
-@app.route("/updatetext/<text_id>")
-@login_required
-def updatetext(text_id):
-    text = Texts.query.get_or_404(text_id)
-    if text.author != current_user:
-        abort()
-    updated_text = request.args.get("text")
-    text.content = updated_text
-    db.session.commit()
-    new_click = UserActions(user_id=current_user.id, action=3)
-    db.session.add(new_click)
-    db.session.commit()
-
-    return redirect(url_for("dashboard"))
 
 

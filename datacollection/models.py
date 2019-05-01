@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     user_actions = db.relationship('UserActions', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"User('{self.id}')"
+        return f"'{self.id}')"
 
 
 class Texts(db.Model, UserMixin):

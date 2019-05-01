@@ -1,5 +1,4 @@
 from flask import Flask
-from wtf_tinymce import wtf_tinymce
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
@@ -12,7 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db?check_same_thread=Fal
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-wtf_tinymce.init_app(app)
 
 configuration = ProWritingAidSDK.Configuration()
 configuration.host = 'https://api.prowritingaid.com'

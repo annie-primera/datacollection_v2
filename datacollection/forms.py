@@ -2,7 +2,6 @@ from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField, TextAreaField, StringField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, Length, EqualTo, Email
-from wtf_tinymce.forms.fields import TinyMceField
 
 
 class RegistrationForm(FlaskForm):
@@ -27,4 +26,4 @@ class NewPost(FlaskForm):
 class EditPost(FlaskForm):
     title = StringField('Title', validators=[DataRequired(message="All texts must have a title")])
     content = TextAreaField(validators=[DataRequired()])
-    submit = SubmitField('Save and return to Dashboard', validators=[DataRequired()])
+    submit = SubmitField('Save', validators=[DataRequired()])
