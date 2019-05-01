@@ -109,7 +109,8 @@ def editor(text_id):
     elif request.method == "GET":
         form.content.data = text.content
         form.title.data = text.title
-        return render_template("editor.html", form=form)
+        text_id = Texts.query.get_or_404(text_id)
+        return render_template("editor.html", form=form, text_id=text_id)
 
 
 @app.route("/summary/<text_id>", methods=["POST"])
