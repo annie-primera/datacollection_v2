@@ -75,10 +75,16 @@ def newtext():
         new_text = Texts(user_id=current_user.id, title=title, content=text)
         db.session.add(new_text)
         db.session.commit()
+        last_text = db.session.query(Texts).order_by(Texts.id.desc()).first()
+        text_version = TextVersions(content=last_text.content, user_id=current_user.id, text_id=last_text.id)
+        db.session.add(text_version)
+        db.session.commit()
         new_click = UserActions(user_id=current_user.id, action=4)
         db.session.add(new_click)
         db.session.commit()
-        return redirect(url_for('dashboard'))
+        plaintext = BeautifulSoup(last_text.content)
+        text_summary = Grammar.summary(plaintext.get_text())
+        return render_template("summary.html", text_id=last_text.id, text_summary=text_summary)
     elif request.method == "GET":
         return render_template("basiceditor.html", form=form)
 
