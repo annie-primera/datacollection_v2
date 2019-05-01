@@ -129,7 +129,16 @@ def summary(text_id):
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 
 
-
+@app.route("/deletetext", methods=["POST"])
+@login_required
+def deletetext():
+    text_id = request.args.get("text_id")
+    text = Texts.query.get_or_404(text_id)
+    if text.user_id != current_user.id:
+        abort(403)
+    db.session.delete(text)
+    db.session.commit()
+    return redirect(url_for('dashboard'))
 
 
 
