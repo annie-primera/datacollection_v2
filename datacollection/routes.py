@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request, session, abort
+from flask import render_template, redirect, url_for, request, abort, flash
 from flask_login import login_required, login_user, logout_user, current_user
 from datacollection import app, db, bcrypt
 from datacollection.forms import LoginForm, RegistrationForm, NewPost, EditPost
@@ -68,23 +68,18 @@ def dashboard():
 @app.route("/newtext", methods=["GET", "POST"])
 @login_required
 def newtext():
-    form = NewPost()
-    if request.method == "POST" and form.validate():
-        new_post = Texts(user_id=current_user.id, title=form.title.data, content=form.content.data)
-        db.session.add(new_post)
+    form = EditPost()
+    if request.method == "POST":
+        title = request.form['title']
+        text = request.form['text']
+        new_text = Texts(user_id=current_user.id, title=title, content=text)
+        db.session.add(new_text)
         db.session.commit()
         new_click = UserActions(user_id=current_user.id, action=4)
         db.session.add(new_click)
         db.session.commit()
-        last_text = db.session.query(Texts).order_by(Texts.id.desc()).first()
-        text_id = last_text.id
-        text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
-        db.session.add(text_version)
-        db.session.commit()
-        plaintext = BeautifulSoup(form.content.data)
-        text_summary = Grammar.summary(plaintext.get_text())
-        return render_template("summary.html", text_id=text_id, text_summary=text_summary)
-    else:
+        return redirect(url_for('dashboard'))
+    elif request.method == "GET":
         return render_template("basiceditor.html", form=form)
 
 
@@ -130,10 +125,9 @@ def summary(text_id):
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 
 
-@app.route("/deletetext", methods=["POST"])
+@app.route("/deletetext/<text_id>", methods=["GET", "POST"])
 @login_required
-def deletetext():
-    text_id = request.args.get("text_id")
+def deletetext(text_id):
     text = Texts.query.get_or_404(text_id)
     if text.user_id != current_user.id:
         abort(403)
