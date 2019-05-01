@@ -68,25 +68,48 @@ def dashboard():
 @app.route("/newtext", methods=["GET", "POST"])
 @login_required
 def newtext():
-    form = NewPost(request.form)
-    if request.method == "POST":
-        if form.validate_on_submit():
-            new_post = Texts(user_id=current_user.id, title=form.title.data, content=form.content.data)
-            db.session.add(new_post)
-            db.session.commit()
-            new_click = UserActions(user_id=current_user.id, action=4)
-            db.session.add(new_click)
-            db.session.commit()
-            last_text = db.session.query(Texts).order_by(Texts.id.desc()).first()
-            text_id = last_text.id
-            text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
-            db.session.add(text_version)
-            db.session.commit()
-            plaintext = BeautifulSoup(form.content.data)
-            text_summary = Grammar.summary(plaintext.get_text())
-            return render_template("summary.html", text_id=text_id, text_summary=text_summary)
+    form = NewPost()
+    if request.method == "POST" and form.validate():
+        new_post = Texts(user_id=current_user.id, title=form.title.data, content=form.content.data)
+        db.session.add(new_post)
+        db.session.commit()
+        new_click = UserActions(user_id=current_user.id, action=4)
+        db.session.add(new_click)
+        db.session.commit()
+        last_text = db.session.query(Texts).order_by(Texts.id.desc()).first()
+        text_id = last_text.id
+        text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
+        db.session.add(text_version)
+        db.session.commit()
+        plaintext = BeautifulSoup(form.content.data)
+        text_summary = Grammar.summary(plaintext.get_text())
+        return render_template("summary.html", text_id=text_id, text_summary=text_summary)
     else:
         return render_template("basiceditor.html", form=form)
+
+
+@app.route("/editor/<text_id>", methods=["GET", "POST"])
+@login_required
+def editor(text_id):
+    text = Texts.query.get_or_404(text_id)
+    if text.user_id != current_user.id:
+        abort(403)
+    form = EditPost()
+    if request.method == "POST" and form.validate():
+        text.title = form.title.data
+        text.content = form.content.data
+        db.session.commit()
+        new_click = UserActions(user_id=current_user.id, action=3)
+        db.session.add(new_click)
+        db.session.commit()
+        text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
+        db.session.add(text_version)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+    elif request.method == "GET":
+        form.content.data = text.content
+        form.title.data = text.title
+        return render_template("editor.html", form=form)
 
 
 @app.route("/summary/<text_id>", methods=["POST"])
@@ -106,26 +129,7 @@ def summary(text_id):
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 
 
-@app.route("/editor/<text_id>", methods=["GET", "POST"])
-@login_required
-def editor(text_id):
-    text = Texts.query.get_or_404(text_id)
-    if text.user_id != current_user.id:
-        abort(403)
-    form = EditPost(request.form)
-    print(form.errors)
-    if request.method == "POST" and form.validate():
-        text.title = form.title.data
-        text.content = form.content.data
-        db.session.commit()
-        new_click = UserActions(user_id=current_user, action=3)
-        db.session.add(new_click)
-        db.session.commit()
-        return redirect(url_for('account'))
-    elif request.method == "GET":
-        form.content.data = text.content
-        form.title.data = text.title
-        return render_template("editor.html", form=form)
+
 
 
 

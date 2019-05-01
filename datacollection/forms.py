@@ -20,10 +20,10 @@ class LoginForm(FlaskForm):
 class NewPost(FlaskForm):
     title = StringField('Title', validators=[DataRequired(message="All texts must have a title")])
     content = TextAreaField(validators=[DataRequired()])
-    submit = SubmitField('Save and check Grammar', validators=[DataRequired()])
+    submit = SubmitField('Save and check Grammar')
 
 
 class EditPost(FlaskForm):
     title = StringField('Title', validators=[DataRequired(message="All texts must have a title")])
     content = TextAreaField(validators=[DataRequired()])
-    submit = SubmitField('Save', validators=[DataRequired()])
+    submit = SubmitField('Save')

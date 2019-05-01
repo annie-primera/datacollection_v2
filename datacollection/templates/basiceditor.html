@@ -1,10 +1,5 @@
 {% extends "base.html" %}
 
-{% block head %}
-{{ super() }}
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'textarea' });</script>
-{% endblock %}
 
 
 {% block content %}
@@ -35,7 +30,8 @@
 <!-- TEXT EDITOR HERE -->
 <div class="container mt-5">
     <div class="content-section">
-        <form method="POST" action="">
+        <form method="POST" action="/newtext">
+            {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ legend }}</legend>
                 <div class="form-group">
