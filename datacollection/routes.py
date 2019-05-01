@@ -141,4 +141,8 @@ def deletetext():
     return redirect(url_for('dashboard'))
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 

@@ -2,10 +2,28 @@
 
 {% block content %}
 
-    <div class ="container">
+    <div class ="container mt-5">
         <div class="container">
             <h2>Register a new account</h2>
         </div>
+
+        <div class ="container mt-3">
+            <h3>Before you register...</h3>
+            <p>This web application is part of my PhD research. The full
+            information sheet can be found <a href="/about">in this link</a>, but the data that will be collected from
+            you will be:
+            <ul>
+                <li>Time spent using the platform</li>
+                <li>Functions used </li>
+                <li>Feedback uptake </li>
+                <li>Submitted text</li>
+            </ul>
+            </p>
+            <p>All of this data will be stored anonymously.</p>
+            <p>By creating this account, you confirm that you are aware that your data will be collected,
+            and that you understand the purposes for which the data will be used, as outlined <a href="/about" target="_blank">here.</a></p>
+        </div>
+
         <div class="container page-form">
             <form id="login-form" action="/register" method="POST">
                 {{ registrationform.csrf_token }}
@@ -31,8 +49,6 @@
                 {{ registrationform.submit(class="btn btn-primary btn-block") }}
             </form>
 
-            <p>By creating this account, you confirm that you are aware that some of your data might be collected,
-            and that you understand the purposes for which the data will be used, as outlined <a href="/about" target="_blank">here</a>.</p>
 
         </div>
     </div>
