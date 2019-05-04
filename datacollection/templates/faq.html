@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/dashboard">Grammar aid</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/dashboard">Dashboard <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <form class="form-inline my-2 my-lg-0" action="/logout" method="POST">
+                    <button type="submit" class="btn btn-danger">Log out</button>
+                </form>
+            </li>
+        </ul>
+  </div>
+</nav>
+
+
+    <div class="container mt-5">
+        <h2>Frequently asked questions</h2>
+    </div>
+
+    <div class="container mb-5 mt-5">
+        <button class="btn btn-primary" onclick="goBack()">Go Back</button>
+    </div>
+
+    <div class="container">
+        <h4>What is the Readability Score in the summary? Why is my score always so low?</h4>
+        <p>The Readability score lets you know how readable your text would be to an average 13-year old. Postgraduate
+        writing is always going to get a very low score, because your target audience is people with higher degrees
+        and not average 13-year-olds. You do not have to worry about the readability score.</p>
+        <h4>Why does the program hate passive verbs so much?</h4>
+        <p>In most types of writing, passive verbs are frowned upon because it 'hides' who performed an action. In academic
+        writing, passive voice is used sometimes to denote objectivity or to focus on the action performed, but APA still
+            recommends active voice for academic writing.
+            <a href="https://advice.writing.utoronto.ca/revising/passive-voice/">This resource </a> from the University
+                of Toronto in Canada explains the difference between active and passive voice, and
+                <a href="https://unilearning.uow.edu.au/academic/3avi.html">this resource </a> from the University of0
+                Wollonwong in Australia gives some good examples on when passive voice is acceptable. </p>
+    </div>
+    <div class="container mt-3">
+        <p>If you have another question that is not addressed here, contact me at <a href="mailto:ana.hibert@ed.ac.uk">ana.hibert@ed.ac.uk.</a></p>
+    </div>
+
+
+
+
+
+{% endblock %}
