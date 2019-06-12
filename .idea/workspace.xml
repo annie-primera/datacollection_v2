@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae494475-4188-4e67-9886-da13472f6690" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/datacollection/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datacollection/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datacollection/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datacollection/site.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datacollection/static/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/static/css/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datacollection/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/templates/about.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/datacollection/templates/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/templates/registration.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,8 +29,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datacollection/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="109" selection-start-line="7" selection-start-column="109" selection-end-line="7" selection-end-column="109" />
+            <state relative-caret-position="150">
+              <caret line="10" column="105" lean-forward="true" selection-start-line="10" selection-start-column="105" selection-end-line="10" selection-end-column="105" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -45,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datacollection/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+            <state relative-caret-position="240">
+              <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -54,7 +50,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datacollection/routes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
@@ -66,8 +62,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datacollection/templates/registration.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
+            <state relative-caret-position="269">
+              <caret line="26" column="58" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/datacollection/templates/about.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
             </state>
           </provider>
         </entry>
@@ -102,7 +107,6 @@
         <option value="$PROJECT_DIR$/datacollection/templates/base.html" />
         <option value="$PROJECT_DIR$/datacollection/__init__.py" />
         <option value="$PROJECT_DIR$/datacollection/templates/home.html" />
-        <option value="$PROJECT_DIR$/datacollection/templates/about.html" />
         <option value="$PROJECT_DIR$/datacollection/templates/editor.html" />
         <option value="$PROJECT_DIR$/datacollection/templates/dashboard.html" />
         <option value="$PROJECT_DIR$/datacollection/templates/faq.html" />
@@ -110,10 +114,11 @@
         <option value="$PROJECT_DIR$/datacollection/templates/tutorial.html" />
         <option value="$PROJECT_DIR$/datacollection/static/css/custom.css" />
         <option value="$PROJECT_DIR$/datacollection/static/css/bootstrap.min.css" />
-        <option value="$PROJECT_DIR$/datacollection/templates/registration.html" />
-        <option value="$PROJECT_DIR$/datacollection/forms.py" />
         <option value="$PROJECT_DIR$/datacollection/models.py" />
         <option value="$PROJECT_DIR$/datacollection/routes.py" />
+        <option value="$PROJECT_DIR$/datacollection/forms.py" />
+        <option value="$PROJECT_DIR$/datacollection/templates/registration.html" />
+        <option value="$PROJECT_DIR$/datacollection/templates/about.html" />
       </list>
     </option>
   </component>
@@ -237,18 +242,18 @@
     <frame x="67" y="25" width="1853" height="935" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14098361" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14098361" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3287841" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32258064" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32258064" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32914573" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32914573" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32754344" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32754344" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32382134" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -285,13 +290,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/datacollection/static/summary.png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datacollection/templates/about.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/datacollection/templates/faq.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -366,37 +364,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/datacollection/routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="29" column="182" lean-forward="true" selection-start-line="29" selection-start-column="182" selection-end-line="29" selection-end-column="182" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/datacollection/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+        <state relative-caret-position="240">
+          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/datacollection/templates/registration.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datacollection/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="109" selection-start-line="7" selection-start-column="109" selection-end-line="7" selection-end-column="109" />
+        <state relative-caret-position="150">
+          <caret line="10" column="105" lean-forward="true" selection-start-line="10" selection-start-column="105" selection-end-line="10" selection-end-column="105" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/datacollection/routes.py">
+    <entry file="file://$PROJECT_DIR$/datacollection/templates/registration.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="29" column="182" lean-forward="true" selection-start-line="29" selection-start-column="182" selection-end-line="29" selection-end-column="182" />
+        <state relative-caret-position="269">
+          <caret line="26" column="58" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datacollection/templates/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
         </state>
       </provider>
     </entry>
