@@ -3,3 +3,7 @@
         float: none; /* Added */
         margin-bottom: 10px; /* Added */
 }
+
+
+/* gets rid of bullet points in wtforms radio buttons */
+fieldset.inlineLabels ul {list-style:none}

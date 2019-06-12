@@ -27,7 +27,7 @@ def register():
                 form.email.errors.append("Email address already registered")
                 return render_template("registration.html", registrationform=form)
             hashedpassword = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
-            user = User(email=form.email.data, password=hashedpassword)
+            user = User(email=form.email.data, password=hashedpassword, gender=form.gender.data, program=form.program.data, score=form.score.data, english=form.english.data, language=form.language.data)
             db.session.add(user)
             db.session.commit()
             return render_template("home.html", onloadmessage="Registration successful. Please log in.", loginform=LoginForm())
