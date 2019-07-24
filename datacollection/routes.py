@@ -33,7 +33,7 @@ def register():
             return render_template("home.html", onloadmessage="Registration successful. Please log in.", loginform=LoginForm())
         return render_template("registration.html", registrationform=form)
     registrationform = RegistrationForm()
-    return render_template("registration.html", registrationform=registrationform)
+    return render_template("registration.html", title="Register", registrationform=registrationform)
 
 
 @app.route("/login", methods=["POST"])

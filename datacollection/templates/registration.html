@@ -21,6 +21,9 @@
             </ul>
             </p>
             <p>All of this data will be stored anonymously.</p>
+            <p>If you want to withdraw from this study at any moment, for any reason, you can send me an e-mail to
+                <a href="mailto:ana.hibert@ed.ac.uk">ana.hibert@ed.ac.uk</a> and I will immediately withdraw you
+                and delete any data collected on you.</p>
             <p>By creating this account, you confirm that you are aware that your data will be collected,
             and that you understand the purposes for which the data will be used, as outlined <a href="/about" target="_blank">here.</a></p>
             <p>In order to register for this software, it is important that you fill out all the fields in the registration form.
@@ -29,66 +32,147 @@
 
         <div class="container page-form">
             <form id="login-form" action="/register" method="POST">
-                {{ registrationform.csrf_token }}
-                <div class="form-group">
-                    {% if registrationform.gender.errors %}
-                    <ul class=errors">{% for error in registrationform.gender.errors %}<li>{{ error }}</li>{% endfor %} </ul>
-                    {% endif %}
-                    <h6>Gender</h6>
-                    {{ registrationform.gender(class="form-control", style="list-style:none")}}
-                </div>
-                <div class="form-group">
-                    {% if registrationform.program.errors %}
-                    <ul class=errors">{% for error in registrationform.program.errors %}<li>{{ error }}</li>{% endfor %} </ul>
-                    {% endif %}
-                    <h6>Programme of study</h6>
-                    {{ registrationform.program(class="form-control", style="list-style:none")}}
-                </div>
-                <div class="form-group">
-                    {% if registrationform.score.errors %}
-                    <ul class=errors">{% for error in registrationform.score.errors %}<li>{{ error }}</li>{% endfor %} </ul>
-                    {% endif %}
-                    <h6>TOEFL/IELTS score</h6>
-                    {{ registrationform.score(class="form-control")}}
-                </div>
-                <div class="form-group">
-                    {% if registrationform.english.errors %}
-                    <ul class=errors">{% for error in registrationform.english.errors %}<li>{{ error }}</li>{% endfor %} </ul>
-                    {% endif %}
-                    <h6>Approximately how many years have you studied English? (type only a number)</h6>
-                    {{ registrationform.english(class="form-control")}}
-                </div>
-                <div class="form-group">
-                    {% if registrationform.language.errors %}
-                    <ul class=errors">{% for error in registrationform.language.errors %}<li>{{ error }}</li>{% endfor %} </ul>
-                    {% endif %}
-                    <h6>What is your first language?</h6>
-                    {{ registrationform.language(class="form-control")}}
-                </div>
-                <h6>Login information</h6>
-                <div class="form-group">
-                    {% if registrationform.email.errors %}
-                    <ul class=errors">{% for error in registrationform.email.errors %}<li>{{ error }}</li>{% endfor %} </ul>
-                    {% endif %}
-                    {{ registrationform.email(class="form-control", placeholder="Email Address" )}}
-                </div>
-                <div class="form-group">
-                    {% if registrationform.password.errors %}
-                    <ul class=errors">{% for error in registrationform.password.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-                    {% endif %}
-                    {{ registrationform.password(class="form-control", placeholder="Password" )}}
-                </div>
-                <div class="form-group">
-                    {% if registrationform.password2.errors %}
-                    <ul class=errors">{% for error in registrationform.password2.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-                    {% endif %}
-                    {{ registrationform.password2(class="form-control", placeholder="Confirm password" )}}
-                </div>
+                {{ registrationform.hidden_tag() }}
+                <fieldset class="form group">
+                    <legend class="border-bottom mb-4">Register</legend>
+                    <div class="form-group">
+                        {{ registrationform.gender.label(class="form-control-label") }}
 
-                {{ registrationform.submit(class="btn btn-primary btn-block") }}
+                        {% if registrationform.gender.errors %}
+                            {{ registrationform.gender(class="form-control is-invalid", style="list-style:none") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.gender.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ registrationform.gender(class="form-control", style="list-style:none") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ registrationform.program.label(class="form-control-label") }}
+
+                        {% if registrationform.program.errors %}
+                            {{ registrationform.program(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.program.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ registrationform.program(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ registrationform.score.label(class="form-control-label") }}
+
+                        {% if registrationform.score.errors %}
+                            {{ registrationform.score(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.score.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ registrationform.score(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ registrationform.english.label(class="form-control-label") }}
+
+                        {% if registrationform.english.errors %}
+                            {{ registrationform.english(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.english.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ registrationform.english(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ registrationform.language.label(class="form-control-label") }}
+
+                        {% if registrationform.language.errors %}
+                            {{ registrationform.language(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.language.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ registrationform.language(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ registrationform.email.label(class="form-control-label") }}
+
+                        {% if registrationform.email.errors %}
+                            {{ registrationform.email(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ registrationform.email(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ registrationform.password.label(class="form-control-label") }}
+
+                        {% if registrationform.password.errors %}
+                            {{ registrationform.password(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ registrationform.password(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ registrationform.password2.label(class="form-control-label") }}
+
+                        {% if registrationform.password2.errors %}
+                            {{ registrationform.password2(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.password2.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ registrationform.password2(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div>
+                        <p>By ticking the box below and creating an account, you acknowledge that you have read the information
+                        provided and you agree to participate in this research. You also acknowledge that you understand
+                        which data will be collected, for what purposes, and that you are aware of the mechanisms for withdrawing from
+                        the study.</p>
+                    </div>
+                    <div class="form-check">
+                        {{ registrationform.acceptance(class="form-check-input") }}
+                        {{ registrationform.acceptance.label(class="form-check-label") }}
+
+                        {% if registrationform.acceptance.errors %}
+                            {{ registrationform.acceptance(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for errors in registrationform.acceptance.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                        {{ registrationform.submit(class="btn btn-primary btn-block") }}
+                </div>
             </form>
-
-
         </div>
     </div>
 
