@@ -54,6 +54,9 @@ def login():
 
 @app.route("/logout", methods=["POST"])
 def logout():
+    logout_click = UserActions(action=7, user_id=current_user.id)
+    db.session.add(logout_click)
+    db.session.commit()
     logout_user()
     return render_template("home.html", loginform=LoginForm())
 
@@ -100,7 +103,7 @@ def editor(text_id):
         text.title = form.title.data
         text.content = form.content.data
         db.session.commit()
-        new_click = UserActions(user_id=current_user.id, action=3)
+        new_click = UserActions(user_id=current_user.id, action=3, text_id=text_id)
         db.session.add(new_click)
         db.session.commit()
         text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
@@ -110,6 +113,9 @@ def editor(text_id):
     elif request.method == "GET":
         form.content.data = text.content
         form.title.data = text.title
+        new_click = UserActions(user_id=current_user.id, action=6, text_id=text_id)
+        db.session.add(new_click)
+        db.session.commit()
         text_id = Texts.query.get_or_404(text_id)
         return render_template("editor.html", form=form, text_id=text_id)
 
@@ -124,7 +130,7 @@ def summary(text_id):
     db.session.commit()
     plaintext = BeautifulSoup(text)
     text_summary = Grammar.summary(plaintext.get_text())
-    new_click = UserActions(user_id=current_user.id, action=2)
+    new_click = UserActions(user_id=current_user.id, action=2, text_id=text_id)
     db.session.add(new_click)
     db.session.commit()
 

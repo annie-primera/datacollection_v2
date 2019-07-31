@@ -60,6 +60,7 @@ class UserActions(db.Model):
     fecha = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     action = db.Column(db.Integer, db.ForeignKey('actions.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    text_id = db.Column(db.Integer, db.ForeignKey('texts.id'), nullable=True)
 
     def __repr__(self):
-        return f"UserActions('{self.user_id}', '{self.action}')"
+        return f"UserActions('{self.user_id}', '{self.action}', '{self.text_id}')"
