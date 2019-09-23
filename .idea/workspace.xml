@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ae494475-4188-4e67-9886-da13472f6690" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datacollection/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datacollection/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datacollection/site.db" beforeDir="false" afterPath="$PROJECT_DIR$/datacollection/site.db" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +113,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

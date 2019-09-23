@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
     user_actions = db.relationship('UserActions', backref='author', lazy=True)
 
     def __repr__(self):
-        return f"'{self.id}')"
+        return self.id
 
 
 class Texts(db.Model, UserMixin):
@@ -33,7 +33,7 @@ class Texts(db.Model, UserMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
-        return f"{self.title}"
+        return self.title
 
 
 class TextVersions(db.Model):
@@ -44,7 +44,7 @@ class TextVersions(db.Model):
     text_id = db.Column(db.Integer, db.ForeignKey('texts.id'), nullable=False)
 
     def __repr__(self):
-        return f"TextVersions('{self.id}')"
+        return self.id
 
 
 class Actions(db.Model):
@@ -52,7 +52,7 @@ class Actions(db.Model):
     action = db.Column(db.String(10), nullable=False)
 
     def __repr__(self):
-        return f"Actions('{self.action}', '{self.id}')"
+        return self.action, self.id
 
 
 class UserActions(db.Model):
@@ -63,4 +63,4 @@ class UserActions(db.Model):
     text_id = db.Column(db.Integer, db.ForeignKey('texts.id'), nullable=True)
 
     def __repr__(self):
-        return f"UserActions('{self.user_id}', '{self.action}', '{self.text_id}')"
+        return self.user_id, self.action, self.text_id
