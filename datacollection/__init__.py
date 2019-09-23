@@ -6,7 +6,7 @@ import ProWritingAidSDK
 
 app = Flask(__name__)
 
-app.secret_key = 'flkjsdfF7348503N=[F-0O3I4URasdfa7U8D54ferP4]WEOIjh45987wiehgh345ldfgn1ksyioneEkiwerRIGOQ'
+app.secret_key = ''
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db?check_same_thread=False'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
@@ -14,6 +14,6 @@ login_manager = LoginManager(app)
 
 configuration = ProWritingAidSDK.Configuration()
 configuration.host = 'https://api.prowritingaid.com'
-configuration.api_key['licenseCode'] = 'A17D00BF-3DF2-40DA-AE0F-0B8172F2CB1C'
+configuration.api_key['licenseCode'] = ''
 
 from datacollection import routes
