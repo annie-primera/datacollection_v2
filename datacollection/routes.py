@@ -109,7 +109,7 @@ def editor(text_id):
         text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
         db.session.add(text_version)
         db.session.commit()
-        return redirect(url_for('dashboard'))
+        return render_template("editor.html", form=form, text_id=text_id)
     elif request.method == "GET":
         form.content.data = text.content
         form.title.data = text.title
