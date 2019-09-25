@@ -7,7 +7,7 @@ import ProWritingAidSDK
 
 app = Flask(__name__)
 
-app.secret_key = 'lsdjf5hnlvsecrmlsldjflhenlcnhu'
+app.secret_key = ''
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db?check_same_thread=False'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
