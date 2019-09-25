@@ -128,13 +128,16 @@ def editor(text_id):
             textsubmit = form.content.data
             plaintext = BeautifulSoup(textsubmit)
             userid = current_user.id
-            msg = Message("Text from {userid}",
+            msg = Message("Text from {}".format(current_user.id),
                           sender="ahibertjr@gmail.com",
                           recipients=["ana.hibert@ed.ac.uk"])
             msg.body = plaintext
             mail.send(msg)
             return redirect(url_for('dashboard'))
     elif request.method == "GET":
+        open_text = UserActions(user_id=current_user.id, action=6, text_id=text_id)
+        db.session.add(new_click)
+        db.session.commit()
         form.content.data = text.content
         form.title.data = text.title
         return render_template("editor.html", form=form, text_id=text_id)
