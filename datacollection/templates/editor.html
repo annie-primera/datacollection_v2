@@ -64,8 +64,14 @@
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-success") }}
+                {{ form.save(class="btn btn-success") }}
             </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-info") }}
+            </div>
+        </form>
+        <form class="form-inline my2 my-lg-0" action="/submit/{{ text_id.id }}" method="POST">
+            <input type="submit" value="Submit to instructor" class="btn btn-info">
         </form>
     </div>
 </div>

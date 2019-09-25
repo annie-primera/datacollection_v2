@@ -52,7 +52,7 @@ class Actions(db.Model):
     action = db.Column(db.String(10), nullable=False)
 
     def __repr__(self):
-        return self.action, self.id
+        return "{}".format(self.action)
 
 
 class UserActions(db.Model):

@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, request, abort, flash
 from flask_login import login_required, login_user, logout_user, current_user
-from datacollection import app, db, bcrypt
+from flask_mail import Message
+from datacollection import app, db, bcrypt, mail
 from datacollection.forms import LoginForm, RegistrationForm, NewPost, EditPost
 from datacollection.models import User, UserActions, Texts, TextVersions
 from datacollection.grammar import Grammar
@@ -95,29 +96,44 @@ def newtext():
 @app.route("/editor/<text_id>", methods=["GET", "POST"])
 @login_required
 def editor(text_id):
+    # This route handles displaying text on the editor, saving text to DB and submitting to instructor's e-mail address
     text = Texts.query.get_or_404(text_id)
     if text.user_id != current_user.id:
         abort(403)
     form = EditPost()
     if request.method == "POST" and form.validate():
-        text.title = form.title.data
-        text.content = form.content.data
-        db.session.commit()
-        new_click = UserActions(user_id=current_user.id, action=3, text_id=text_id)
-        db.session.add(new_click)
-        db.session.commit()
-        text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
-        db.session.add(text_version)
-        db.session.commit()
-        return render_template("editor.html", form=form, text_id=text_id)
-    elif request.method == "GET":
-        form.content.data = text.content
-        form.title.data = text.title
-        new_click = UserActions(user_id=current_user.id, action=6, text_id=text_id)
-        db.session.add(new_click)
-        db.session.commit()
-        text_id = Texts.query.get_or_404(text_id)
-        return render_template("editor.html", form=form, text_id=text_id)
+        if form.save.data:
+            # Saving the text
+            text.title = form.title.data
+            text.content = form.content.data
+            db.session.commit()
+            new_click = UserActions(user_id=current_user.id, action=3, text_id=text_id)
+            db.session.add(new_click)
+            db.session.commit()
+            text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
+            db.session.add(text_version)
+            db.session.commit()
+            return render_template("editor.html", form=form, text_id=text_id)
+        elif form.submit.data:
+            # Submitting the text
+            text.title = form.title.data
+            text.content = form.content.data
+            db.session.commit()
+            new_click = UserActions(user_id=current_user.id, action=5, text_id=text_id)
+            db.session.add(new_click)
+            db.session.commit()
+            text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
+            db.session.add(text_version)
+            db.session.commit()
+            text = texts.content
+            plaintext = BeautifulSoup(text)
+            userid = current_user.id
+            msg = Message("Text from {userid}",
+                          sender="ahibertjr@gmail.com",
+                          recipients=["ana.hibert@ed.ac.uk"])
+            msg.body = plaintext
+            mail.send(msg)
+            return redirect(url_for('dashboard'))
 
 
 @app.route("/summary/<text_id>", methods=["POST"])
@@ -135,6 +151,29 @@ def summary(text_id):
     db.session.commit()
 
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
+
+@app.route("/submit/<text_id>", methods=["POST"])
+@login_required
+def submit(text_id):
+    texts = Texts.query.filter_by(id=text_id).first()
+    text.title = form.title.data
+    text.content = form.content.data
+    db.session.commit()
+    new_click = UserActions(user_id=current_user.id, action=3, text_id=text_id)
+    db.session.add(new_click)
+    db.session.commit()
+    text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
+    db.session.add(text_version)
+    db.session.commit()
+    text = texts.content
+    plaintext = BeautifulSoup(text)
+    userid = current_user.id
+    msg = Message("Text from {userid}",
+                  sender="ahibertjr@gmail.com",
+                  recipients=["ana.hibert@ed.ac.uk"])
+    msg.body = plaintext
+    mail.send(msg)
+    return redirect(url_for('dashboard'))
 
 
 @app.route("/deletetext/<text_id>", methods=["GET", "POST"])

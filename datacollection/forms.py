@@ -35,4 +35,5 @@ class NewPost(FlaskForm):
 class EditPost(FlaskForm):
     title = StringField('Title', validators=[DataRequired(message="All texts must have a title")])
     content = TextAreaField(validators=[DataRequired()])
-    submit = SubmitField('Save')
+    save = SubmitField('Save')
+    submit = SubmitField('Submit to instructor')
