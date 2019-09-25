@@ -125,8 +125,8 @@ def editor(text_id):
             text_version = TextVersions(content=form.content.data, user_id=current_user.id, text_id=text_id)
             db.session.add(text_version)
             db.session.commit()
-            text = texts.content
-            plaintext = BeautifulSoup(text)
+            textsubmit = form.content.data
+            plaintext = BeautifulSoup(textsubmit)
             userid = current_user.id
             msg = Message("Text from {userid}",
                           sender="ahibertjr@gmail.com",
@@ -134,6 +134,10 @@ def editor(text_id):
             msg.body = plaintext
             mail.send(msg)
             return redirect(url_for('dashboard'))
+    elif request.method == "GET":
+        form.content.data = text.content
+        form.title.data = text.title
+        return render_template("editor.html", form=form, text_id=text_id)
 
 
 @app.route("/summary/<text_id>", methods=["POST"])
