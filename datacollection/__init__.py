@@ -7,7 +7,7 @@ import ProWritingAidSDK
 
 app = Flask(__name__)
 
-app.secret_key = 'lsdjf5hnlvsecrmlsldjflhenlcnhu'
+app.secret_key = ''
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db?check_same_thread=False'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
@@ -20,7 +20,7 @@ app.config.update(dict(
     MAIL_USE_TLS = True,
     MAIL_USE_SSL = False,
     MAIL_USERNAME = 'ahibertjr@gmail.com',
-    MAIL_PASSWORD = 'lt56fno.io.st92',
+    MAIL_PASSWORD = '',
 ))
 mail = Mail(app)
 
