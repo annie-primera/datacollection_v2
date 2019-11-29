@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
+    <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
         <meta http-equiv="X-UA-COmpatible" content="IE-edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noindex">
 
         <title>Grammar checker</title>
 
@@ -106,15 +107,6 @@
     <body>
     {% endblock %}
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 
     {% block content %}
 
