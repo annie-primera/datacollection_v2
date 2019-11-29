@@ -7,7 +7,7 @@ import ProWritingAidSDK
 
 app = Flask(__name__)
 
-app.secret_key = ']WEOIjh45987wiehgh345ldfgn1ksyioneEkiwerRIGOQ'
+app.secret_key = ''
 app.config['SQLALCHEMY_DATABASE_URI'] = 'n'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
