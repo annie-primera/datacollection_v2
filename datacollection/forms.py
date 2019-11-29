@@ -37,3 +37,5 @@ class EditPost(FlaskForm):
     content = TextAreaField(validators=[DataRequired()])
     save = SubmitField('Save')
     submit = SubmitField('Submit to instructor')
+
+    
