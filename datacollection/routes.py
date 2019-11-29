@@ -55,7 +55,7 @@ def login():
 
 @app.route("/logout", methods=["POST"])
 def logout():
-    logout_click = UserActions(action=7, user_id=current_user.id)
+    logout_click = UserActions(action=7, user_id=current_user)
     db.session.add(logout_click)
     db.session.commit()
     logout_user()
@@ -128,15 +128,15 @@ def editor(text_id):
             textsubmit = form.content.data
             plaintext = BeautifulSoup(textsubmit)
             userid = current_user.id
-            msg = Message("Text from {}".format(current_user.id),
-                          sender="ahibertjr@gmail.com",
+            msg = Message("Text from {}".format(userid),
+                          sender="grammaraid.uoe@gmail.com",
                           recipients=["ana.hibert@ed.ac.uk"])
-            msg.body = plaintext
+            msg.body = textsubmit
             mail.send(msg)
             return redirect(url_for('dashboard'))
     elif request.method == "GET":
-        open_text = UserActions(user_id=current_user.id, action=6, text_id=text_id)
-        db.session.add(new_click)
+        open_text = UserActions(action=6, user_id=current_user.id, text_id=text_id)
+        db.session.add(open_text)
         db.session.commit()
         form.content.data = text.content
         form.title.data = text.title
@@ -207,5 +207,4 @@ def tutorial():
 @app.route("/faq")
 def faq():
     return render_template("faq.html")
-
 
