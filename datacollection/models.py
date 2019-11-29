@@ -64,3 +64,5 @@ class UserActions(db.Model):
 
     def __repr__(self):
         return self.user_id, self.action, self.text_id
+
+    
